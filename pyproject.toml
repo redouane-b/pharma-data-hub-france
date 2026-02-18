@@ -1,0 +1,41 @@
+[project]
+name = "pharmascope-france"
+version = "0.1.0"
+description = "French pharmaceutical open-data hub: ETL, analytics, and ML for pharma market intelligence"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.27",
+    "duckdb>=1.1",
+    "pandas>=2.2",
+    "pyarrow>=17.0",
+    "python-dotenv>=1.0",
+    "tqdm>=4.66",
+    "tenacity>=9.0",
+    "matplotlib>=3.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+    "ipykernel>=6.29",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["etl", "ml", "sparring_partner", "app"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

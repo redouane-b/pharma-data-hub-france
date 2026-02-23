@@ -1,295 +1,71 @@
-# L'open data pharmaceutique en France : un guide complet des sources publiques
-
-## Introduction
-
-La France dispose d'un écosystème de données ouvertes particulièrement riche dans le domaine de la santé. Plusieurs bases publiques couvrent l'intégralité de la chaîne de valeur pharmaceutique : le référentiel des médicaments autorisés, les volumes de prescription, le registre des professionnels de santé, la cartographie des établissements, les liens financiers entre laboratoires et praticiens, et le maillage géographique du territoire.
-
-Cet article propose un tour d'horizon structuré de ces sources. Chaque section présente une base de données, son contenu, son format technique, et sa place dans l'analyse du marché pharmaceutique français.
-
----
-
-## Glossaire
-
+Pharma Open Data: Guide des sources publiques de données pharmaceutiques en France. Partie 1 : Base de Données Publique des Médicaments.
+La France dispose d'un écosystème de données ouvertes particulièrement riche dans le domaine de la santé. Plusieurs bases publiques couvrent l'intégralité de la chaîne de valeur pharmaceutique : le référentiel des médicaments autorisés, les volumes de prescription, le registre des professionnels de santé, la cartographie des établissements, les liens financiers entre laboratoires et praticiens, et le maillage géographique du territoire. Cette série se propose d'explorer ces bases de données publiques.
+Glossaire:
 Avant d'entrer dans le détail des bases, quelques définitions transversales utilisées dans l'ensemble de l'article.
-
-### Le médicament : trois niveaux de lecture
-
+Le médicament : trois niveaux de lecture
 Le système français distingue trois niveaux d'identification d'un médicament :
-
-- **La molécule** (ou DCI — Dénomination Commune Internationale) : la substance active, indépendante de toute marque. Exemple : *metformine*, *paracétamol*. C'est le niveau d'analyse privilégié en pharmacologie et en études de marché.
-
-- **La spécialité** : un produit commercial défini par une molécule, un dosage, une forme pharmaceutique et un laboratoire titulaire. Exemple : *GLUCOPHAGE 850 mg, comprimé pelliculé* (Merck). Identifiée par un **Code CIS** à 8 chiffres. Une même molécule donne lieu à de nombreuses spécialités (princeps et génériques).
-
-- **La présentation** : le conditionnement physique vendu en pharmacie (la boîte). Identifiée par un **Code CIP13** à 13 chiffres — le code-barres scanné au comptoir. Une même spécialité peut avoir plusieurs présentations (boîte de 30, boîte de 90, flacon, etc.).
-
-**En synthèse :** 1 molécule → N spécialités → N présentations.
-
-### L'AMM (Autorisation de Mise sur le Marché)
-
+- La molécule (ou DCI - Dénomination Commune Internationale) : la substance active, indépendante de toute marque. C'est le niveau d'analyse privilégié en pharmacologie et en études de marché.
+Exemple : paracétamol.
+- La spécialité : un produit commercial défini par une molécule, un dosage, une forme pharmaceutique et un laboratoire titulaire. Identifiée par un Code CIS à 8 chiffres. Une même molécule donne lieu à de nombreuses spécialités (princeps et génériques).
+Exemple : GLUCOPHAGE 850 mg, comprimé pelliculé.
+- La présentation : le conditionnement physique vendu en pharmacie (la boîte). Identifiée par un Code CIP13 à 13 chiffres - le code-barres scanné au comptoir. Une même spécialité peut avoir plusieurs présentations (boîte de 30, boîte de 90, flacon, etc.).
+En synthèse : 1 molécule → N spécialités → N présentations.
+L'AMM (Autorisation de Mise sur le Marché)
 Autorisation réglementaire obligatoire pour commercialiser un médicament en France. Délivrée après évaluation du rapport bénéfice/risque par l'ANSM (procédure nationale) ou l'EMA (procédure européenne). Une AMM peut être active, suspendue ou retirée.
-
-### Le titulaire
-
-Le laboratoire pharmaceutique qui détient l'AMM. C'est l'entité commerciale et réglementaire responsable du médicament : Sanofi, Pfizer, Servier, Mylan/Viatris, etc.
-
-### La classification ATC
-
+Le titulaire
+Le laboratoire pharmaceutique qui détient l'AMM. C'est l'entité commerciale et réglementaire responsable du médicament : Sanofi, Pfizer, Servier, Viatris, etc.
+La classification ATC
 Le système ATC (Anatomical Therapeutic Chemical) est la classification internationale des médicaments, structurée en 5 niveaux hiérarchiques :
 - Niveau 1 : système anatomique (A = appareil digestif, C = cardiovasculaire, N = système nerveux)
 - Niveau 5 : substance chimique (A10BA02 = metformine)
-
 C'est le langage standard de l'analyse pharma pour segmenter les marchés par aire thérapeutique.
-
-### Market Access
-
-Ensemble des activités visant à obtenir et maintenir l'accès au marché d'un médicament : dépôt du dossier réglementaire, évaluation par la HAS, négociation du prix avec le CEPS, inscription au remboursement. En France, cette fonction est stratégique car les prix sont administrés (fixés par négociation avec l'État, non libres).
-
-### Ville vs. Hôpital
-
+Market Access
+Ensemble des activités visant à obtenir et maintenir l'accès au marché d'un médicament : dépôt du dossier réglementaire, évaluation par la HAS (Haute Autorité de Santé), négociation du prix avec le CEPS (Comité Économique des Produits de Santé), inscription au remboursement. En France, cette fonction est stratégique car les prix sont administrés (fixés par négociation avec l'État, non libres).
+Ville vs. Hôpital
 Le marché pharmaceutique français se divise en deux circuits distincts :
-- **Ville** : médicaments prescrits par les médecins libéraux et dispensés en pharmacie d'officine.
-- **Hôpital** : médicaments prescrits et administrés dans les établissements de santé.
-
+- Ville : médicaments prescrits par les médecins libéraux et dispensés en pharmacie d'officine.
+- Hôpital : médicaments prescrits et administrés dans les établissements de santé.
 Ces deux circuits ont des acteurs, des mécanismes de prix et des stratégies commerciales différents.
+1. BDPM — Base de Données Publique des Médicaments
+La BDPM est le référentiel officiel de l'ensemble des médicaments ayant obtenu une AMM (Autorisation de Mise sur le Marché) en France. Elle est maintenue par l'ANSM (Agence nationale de sécurité du médicament et des produits de santé) et constitue la source de référence pour identifier un médicament, connaître sa composition, son prix, son taux de remboursement, son évaluation par la HAS et ses conditions de prescription.
+Lien données : URL
+Format : Fichiers TXT, séparateur tabulation, pas d'en-tête
+Modèle de données :
+Source : Documentation BDPM URL
+Fichiers disponibles :
+CIS_bdpm.txt: Liste des médicaments commercialisés ou en arrêt de commercialisation depuis moins de deux ans.
+CIS_CIP_bdpm.txt: Décrit les conditionnements (boîtes) disponibles pour chaque spécialité. Porte les informations économiques : prix et remboursement.
+CIS_COMPO_bdpm.txt: Contient la composition qualitative et quantitative en substances actives de chaque spécialité.
+CIS_HAS_SMR_bdpm.txt: Avis de la Commission de la Transparence sur le Service Médical Rendu.
+CIS_HAS_ASMR_bdpm.txt: Avis sur l'Amélioration du Service Médical Rendu (déterminant tarifaire).
+HAS_LiensPageCT_bdpm.txt : Liens vers les avis complets de la Commission de la Transparence.
+CIS_GENER_bdpm.txt : Répertoire des groupes génériques.
+CIS_CPD_bdpm.txt : Conditions de prescription et de délivrance.
 
----
+Exemples d'utilisation des données:
+Le notebook d'analyse associé à cet article explore trois questions concrètes à partir des fichiers BDPM.
 
-## 1. BDPM — Base de Données Publique des Médicaments
+Q1 — Comment se distribuent les prix et le remboursement ?
+Sur 20 894 présentations répertoriées dans la BDPM, 13 179 sont remboursées (63,1 %), les 36,9 % restantes étant non remboursées ou sans indication. Parmi les présentations remboursées, le taux 65 % domine très largement : il couvre 80,1 % du marché officinal remboursé, contre seulement 8,8 % pour le taux 100 % et 8,4 % pour le 30 %.
+L'analyse des prix publics TTC révèle une corrélation forte entre taux de remboursement et niveau de prix : la médiane est de 161,24 € pour les médicaments à 100 %, contre 8,77 € à 65 %, 5,45 € à 30 % et 3,96 € à 15 %. Loin d'être contre-intuitive, cette relation est la conséquence directe de la politique française d'accès aux soins : le taux 100 % est réservé aux affections de longue durée (ALD) — pathologies chroniques lourdes comme le cancer, le diabète de type 1, ou les maladies cardiovasculaires sévères — dont les traitements sont structurellement plus coûteux. Le prix élevé justifie la prise en charge totale, et non l'inverse.
 
-### Présentation
+Q2 — Innovateurs ou génériqueurs : qui sont les grands laboratoires ?
+Sur l'ensemble du parc AMM (15 822 spécialités), 42,6 % sont des génériques, 8,6 % des princeps et 48,8 % des médicaments hors répertoire générique — souvent des produits sous protection de brevet ou des spécialités sans équivalent générique enregistré. Le répertoire des génériques permet de cartographier précisément le positionnement de chaque laboratoire. La fracture entre génériqueurs et innovateurs est nette : KRKA (96,8 % de génériques), Zydus France (96,4 %), Evolupharm (94,8 %), Cristers (90,5 %) et Biogaran (90,3 %) consacrent la quasi-totalité de leur portefeuille à la substitution. À l'opposé, Sanofi Winthrop Industrie, Boiron et Weleda n'ont aucun générique en portefeuille — leurs spécialités sont soit des princeps, soit des produits hors répertoire (homéopathie, produits de spécialité). Pfizer affiche 12,1 % de génériques, reflet d'acquisitions passées, mais garde 57,6 % de son portefeuille hors répertoire.
 
-La BDPM est le référentiel officiel de l'ensemble des médicaments ayant obtenu une AMM en France. Elle est maintenue par l'ANSM et constitue la source de référence pour identifier un médicament, connaître sa composition, son prix, son taux de remboursement, son évaluation par la HAS et ses conditions de prescription.
+Q3 — Quelques laboratoires dominent-ils le marché ?
+Le marché pharmaceutique français présente une concentration extrême, mesurée par un coefficient de Gini de 0,797 sur l'ensemble des 609 laboratoires titulaires de 13 568 spécialités commercialisées. Les 6 premiers laboratoires (1 % du total) détiennent à eux seuls 29,9 % des spécialités. Les 30 premiers (5 %) en contrôlent 60,1 %. À l'autre bout du spectre, la moitié des laboratoires se partagent à peine 4,1 % du parc. La longue traîne est massive : seuls 45 laboratoires ont plus de 50 références, et 22 dépassent 100 spécialités. Boiron (868 spécialités, 6,4 % du marché commercialisé) tient la première place — une anomalie structurelle due à l'enregistrement systématique de dilutions homéopathiques — devant Viatris Santé (762, 5,6 %), Biogaran (718, 5,3 %) et Arrow Génériques (651, 4,8 %).
 
-| Propriété | Valeur |
-|-----------|--------|
-| Éditeur | ANSM |
-| URL | base-donnees-publique.medicaments.gouv.fr |
-| Format | Fichiers TXT, séparateur tabulation, pas d'en-tête |
-| Encodage | UTF-8 |
-| Volume | ~4 Mo au total (8 fichiers) |
-| Mise à jour | Régulière |
-| Licence | Accès libre |
+Limites de la BDPM et ce qui vient ensuite:
+La BDPM est un référentiel produit. Elle répond à la question "qu'est-ce que ce médicament ?" mais ne dit rien sur son usage réel ni sur les acteurs qui le prescrivent ou le vendent. Quatre dimensions essentielles de l'analyse pharmaceutique lui échappent entièrement :
 
-La BDPM se compose de 8 fichiers liés entre eux par le **Code CIS**. Chaque fichier couvre une facette du médicament.
+Les volumes de prescription. Ces données sont dans Open Medic, la base de l'Assurance Maladie — objet de la Partie 2.
 
-### 1.1 Fichier des spécialités (`CIS_bdpm.txt`)
+La classification ATC. La BDPM ne contient pas le code ATC des médicaments. Segmenter le marché par aire thérapeutique (cardiovasculaire, neurologie, oncologie...) nécessite de passer par Open Medic.
 
-Fichier central. Chaque ligne correspond à une spécialité pharmaceutique autorisée (ou dont la commercialisation a cessé depuis moins de deux ans).
+Les prescripteurs. La BDPM connaît le titulaire de l'AMM, pas les médecins qui prescrivent. Identifier et cibler les prescripteurs nécessite le RPPS (Répertoire Partagé des Professionnels de Santé) — objet de la Partie 3.
 
-| Champ | Description |
-|-------|------------|
-| Code CIS | Identifiant unique de la spécialité (8 chiffres). Clé de jointure principale de la BDPM. |
-| Dénomination | Nom complet du médicament : marque, dosage et forme pharmaceutique. |
-| Forme pharmaceutique | Comprimé, gélule, solution injectable, pommade, patch, collyre, etc. |
-| Voies d'administration | Orale, intraveineuse, cutanée, inhalée, sous-cutanée, etc. Plusieurs valeurs possibles, séparées par « ; ». |
-| Statut administratif de l'AMM | Autorisation active, suspendue ou retirée. |
-| Type de procédure d'AMM | Nationale, européenne centralisée, décentralisée, reconnaissance mutuelle. |
-| État de commercialisation | Indique si le médicament est effectivement commercialisé. Un médicament peut avoir une AMM active sans être disponible (rupture de stock, arrêt volontaire). |
-| Date d'AMM | Date d'obtention de l'autorisation (format JJ/MM/AAAA). |
-| Titulaire(s) | Laboratoire(s) détenteur(s) de l'AMM. Plusieurs valeurs possibles séparées par « ; ». |
-| Surveillance renforcée | Oui/Non. Indique si le médicament fait l'objet d'une surveillance additionnelle (triangle noir ▼). |
+Les établissements de santé. Pour analyser le marché hospitalier, il faut cartographier les hôpitaux, cliniques et centres spécialisés. C'est le rôle de FINESS — objet de la Partie 4.
 
-**Remarque sur la voie d'administration :** ce champ a une portée analytique importante. Un médicament injectable intraveineux relève quasi systématiquement du circuit hospitalier (prescription spécialisée, administration par du personnel soignant). Un comprimé oral relève du circuit de ville (prescription libérale, dispensation en officine). Cette distinction conditionne la stratégie commerciale, les cibles de visite médicale et le circuit de distribution.
+Les liens financiers laboratoires-praticiens. La BDPM ne trace pas les relations entre industriels et professionnels de santé (contrats d'orateur, conventions de conseil, avantages). Ces données sont dans Transparence Santé — objet de la Partie 5.
 
-### 1.2 Fichier des présentations (`CIS_CIP_bdpm.txt`)
-
-Décrit les conditionnements (boîtes) disponibles pour chaque spécialité. C'est le fichier qui porte les informations économiques : prix et remboursement.
-
-| Champ | Description |
-|-------|------------|
-| Code CIS | Lien vers la spécialité. |
-| Code CIP7 | Ancien identifiant de présentation à 7 chiffres (obsolète mais encore référencé). |
-| Code CIP13 | Identifiant actuel à 13 chiffres. **Clé de jointure vers les données de prescription Open Medic.** |
-| Libellé de la présentation | Description du conditionnement : « plaquette(s) thermoformée(s) de 30 comprimé(s) ». |
-| Agrément aux collectivités | Oui, Non ou Inconnu. Indique si le médicament peut être acheté par les établissements de santé (hôpitaux, cliniques). |
-| Taux de remboursement | Pourcentage pris en charge par l'Assurance Maladie. Valeurs possibles : 100%, 65%, 30%, 15%. |
-| Prix du médicament en euro | Prix fabricant hors taxes. |
-| Prix public en euro | Prix TTC incluant les marges de distribution. |
-| Honoraires de dispensation | Rémunération du pharmacien pour l'acte de dispensation. |
-| Indications ouvrant droit au remboursement | Texte précisant les indications spécifiques lorsqu'un même médicament a plusieurs taux de remboursement selon l'indication. |
-
-#### Le système de remboursement français
-
-Le taux de remboursement est directement lié à l'évaluation du SMR (voir section 1.4) :
-
-| Taux | SMR correspondant | Signification |
-|------|-------------------|---------------|
-| 100% | Important (en ALD) | Affections de longue durée : cancer, diabète, maladies psychiatriques graves. Prise en charge intégrale. |
-| 65% | Important | Service médical rendu jugé important. Catégorie standard des médicaments considérés comme nécessaires. |
-| 30% | Modéré | Bénéfice médical reconnu mais limité. Reste à charge significatif pour le patient. |
-| 15% | Faible | Bénéfice médical faible. Souvent un stade intermédiaire avant un déremboursement. |
-| Non remboursé | Insuffisant | Médicament non pris en charge. Les volumes de prescription chutent significativement. |
-
-**Prix administrés :** en France, les médicaments remboursés ont un prix fixé par négociation entre le laboratoire et le CEPS (Comité Économique des Produits de Santé). Le prix dépend directement de l'ASMR obtenue (voir section 1.5) : un médicament avec une ASMR I-III justifie un prix supérieur au comparateur ; une ASMR V impose un prix inférieur ou égal à l'existant.
-
-### 1.3 Fichier des compositions (`CIS_COMPO_bdpm.txt`)
-
-Contient la composition qualitative et quantitative en substances actives de chaque spécialité.
-
-| Champ | Description |
-|-------|------------|
-| Code CIS | Lien vers la spécialité. |
-| Désignation de l'élément pharmaceutique | Composant du médicament (comprimé, noyau, enrobage, etc.). |
-| Code de la substance | Identifiant numérique de la substance. |
-| Dénomination de la substance | Nom de la molécule en DCI : METFORMINE, PARACETAMOL, INSULINE GLARGINE. |
-| Dosage | Quantité de substance active : 500 mg, 100 UI/ml. |
-| Référence du dosage | Unité de référence : « pour un comprimé », « pour 1 ml ». |
-| Nature du composant | **SA** (Substance Active) : le principe actif déclaré. **ST** (Fraction Thérapeutique) : la partie réellement active lorsque la substance est un sel ou un complexe. Exemple : dans le fumarate ferreux, la SA est le fumarate ferreux, la ST est le fer élémentaire. |
-
-Ce fichier est indispensable pour passer d'une analyse par marque à une analyse par molécule. L'analyse de marché en pharmacie s'effectue au niveau de la substance active (ou de la classe ATC), pas au niveau de la marque commerciale. C'est en agrégeant toutes les spécialités contenant la même DCI que l'on obtient la taille réelle d'un marché moléculaire.
-
-### 1.4 Fichier des avis SMR (`CIS_HAS_SMR_bdpm.txt`)
-
-Le SMR (Service Médical Rendu) est l'évaluation par la Commission de la Transparence de la HAS du service médical apporté par un médicament. Il prend en compte la gravité de la pathologie, l'efficacité et les effets indésirables, la place dans la stratégie thérapeutique et l'existence d'alternatives.
-
-| Champ | Description |
-|-------|------------|
-| Code CIS | Lien vers la spécialité. |
-| Code de dossier HAS | Identifiant du dossier d'évaluation. Clé de jointure vers le fichier des liens CT. |
-| Motif d'évaluation | Inscription, renouvellement d'inscription, réévaluation, extension d'indication. |
-| Date de l'avis | Date de la décision de la Commission de la Transparence (format AAAAMMJJ). |
-| Valeur du SMR | Important, Modéré, Faible, Insuffisant. |
-| Libellé du SMR | Texte décrivant le niveau de SMR attribué. |
-
-Le SMR détermine le taux de remboursement (voir section 1.2). Il est réévalué périodiquement (tous les 5 ans) ou à l'occasion de nouvelles données cliniques. Un médicament peut voir son SMR rétrogradé si de meilleures alternatives apparaissent sur le marché.
-
-Un SMR « Insuffisant » entraîne le non-remboursement, ce qui se traduit dans la pratique par une chute des prescriptions — la majorité des patients et des prescripteurs s'orientant vers des alternatives prises en charge par la collectivité.
-
-### 1.5 Fichier des avis ASMR (`CIS_HAS_ASMR_bdpm.txt`)
-
-L'ASMR (Amélioration du Service Médical Rendu) évalue le progrès thérapeutique apporté par un médicament **par rapport aux traitements existants**. C'est l'évaluation qui détermine le prix.
-
-| Champ | Description |
-|-------|------------|
-| Code CIS | Lien vers la spécialité. |
-| Code de dossier HAS | Identifiant du dossier. |
-| Motif d'évaluation | Inscription, réévaluation, etc. |
-| Date de l'avis | Date de la décision (format AAAAMMJJ). |
-| Valeur de l'ASMR | I (majeure) à V (inexistante). |
-| Libellé de l'ASMR | Texte décrivant le niveau d'amélioration. |
-
-Les cinq niveaux d'ASMR :
-
-| Niveau | Signification | Conséquence sur le prix |
-|--------|--------------|------------------------|
-| I — Majeure | Progrès thérapeutique majeur. Cas exceptionnels (quelques attributions par décennie). | Prix libre, très élevé. |
-| II — Importante | Amélioration importante en efficacité ou en réduction des effets indésirables. | Prix supérieur au comparateur. |
-| III — Modérée | Amélioration modérée sur un critère clinique pertinent. | Prix supérieur au comparateur, dans une moindre mesure. |
-| IV — Mineure | Amélioration mineure (commodité d'emploi, tolérance). | Faible marge de négociation tarifaire. |
-| V — Inexistante | Absence d'amélioration par rapport à l'existant. Cas le plus fréquent. | Prix inférieur ou égal au comparateur. |
-
-L'ASMR est le déterminant central de la négociation tarifaire avec le CEPS. L'écart de prix autorisé entre une ASMR III et une ASMR V peut représenter, sur la durée de vie commerciale d'un produit, des différences de revenus de plusieurs centaines de millions d'euros. C'est ce qui justifie l'investissement des laboratoires dans des essais cliniques comparatifs visant à démontrer la supériorité de leur produit.
-
-### 1.6 Fichier des liens vers les avis CT (`HAS_LiensPageCT_bdpm.txt`)
-
-Fichier de référence associant chaque code de dossier HAS à l'URL de l'avis complet de la Commission de la Transparence. Permet d'accéder au raisonnement détaillé ayant conduit à l'attribution d'un SMR ou d'un ASMR.
-
-| Champ | Description |
-|-------|------------|
-| Code de dossier HAS | Clé de jointure vers les fichiers SMR et ASMR. |
-| Lien vers la page d'avis CT | URL de l'avis complet sur le site de la HAS. |
-
-### 1.7 Fichier des groupes génériques (`CIS_GENER_bdpm.txt`)
-
-Cartographie le répertoire des génériques : quels médicaments sont interchangeables.
-
-| Champ | Description |
-|-------|------------|
-| Identifiant du groupe générique | Regroupe l'ensemble des spécialités bioéquivalentes. |
-| Libellé du groupe | Nom du groupe : DCI + dosage + forme. |
-| Code CIS | Lien vers la spécialité membre du groupe. |
-| Type de générique | 0 = princeps, 1 = générique, 2 = générique par complémentarité posologique, 4 = générique substituable. |
-
-#### Princeps, génériques et substitution
-
-Le **princeps** est le médicament original, développé par un laboratoire innovant et protégé par un brevet (~20 ans à compter du dépôt, soit environ 10-12 ans de commercialisation effective après les phases de développement clinique).
-
-À l'expiration du brevet, les **génériques** entrent sur le marché. Ils contiennent la même substance active, au même dosage, sous la même forme pharmaceutique, et ont démontré leur bioéquivalence avec le princeps. Ils sont commercialisés à un prix inférieur (environ 60% du prix du princeps initialement, avec des baisses successives).
-
-En France, le pharmacien est habilité — et financièrement incité — à **substituer** un princeps par un générique (type 4 : substituable), sauf mention contraire du prescripteur (« non substituable » sur l'ordonnance). Ce mécanisme entraîne une érosion rapide des parts de marché du princeps après la perte du brevet (« patent cliff »), avec une perte de 50 à 80% des volumes en quelques mois.
-
-Ce fichier permet d'identifier, pour chaque molécule, le stade du cycle de vie : marché sous brevet (princeps seul) ou marché générique (concurrence ouverte).
-
-### 1.8 Fichier des conditions de prescription et de délivrance (`CIS_CPD_bdpm.txt`)
-
-Définit le cadre réglementaire de prescription de chaque médicament.
-
-| Champ | Description |
-|-------|------------|
-| Code CIS | Lien vers la spécialité. |
-| Condition de prescription ou de délivrance | Texte décrivant la condition applicable. |
-
-Les principales conditions :
-
-| Condition | Description |
-|-----------|------------|
-| Liste I | Médicament sur ordonnance, non renouvelable sans nouvelle prescription. |
-| Liste II | Médicament sur ordonnance, renouvelable. |
-| Stupéfiants | Ordonnance sécurisée obligatoire. Durée de prescription limitée (7 à 28 jours). |
-| Prescription hospitalière | Prescription réservée aux médecins hospitaliers. |
-| Prescription initiale hospitalière | Première prescription hospitalière, renouvellement possible en ville. |
-| Prescription réservée aux spécialistes | Prescription limitée à certaines spécialités médicales (ex : oncologues, endocrinologues). |
-| Médicament d'exception | Ordonnance spéciale à 4 volets, prescription restreinte à des indications précises. |
-
-Ces conditions définissent l'univers des prescripteurs potentiels. Un médicament en prescription hospitalière n'a aucun prescripteur en médecine de ville ; un médicament réservé aux spécialistes restreint la cible aux praticiens de la spécialité concernée. Cette information est structurante pour la segmentation et le ciblage commercial.
-
-### Relations entre les fichiers
-
-Le **Code CIS** est la clé de jointure centrale. Tous les fichiers s'y rattachent, à l'exception du fichier des liens CT qui se lie aux fichiers SMR et ASMR par le **Code de dossier HAS**.
-
-```
-CIS_bdpm.txt
- ├── CIS_CIP_bdpm.txt        (Code CIS)
- ├── CIS_COMPO_bdpm.txt       (Code CIS)
- ├── CIS_HAS_SMR_bdpm.txt     (Code CIS)
- │    └── HAS_LiensPageCT     (Code de dossier HAS)
- ├── CIS_HAS_ASMR_bdpm.txt    (Code CIS)
- │    └── HAS_LiensPageCT     (Code de dossier HAS)
- ├── CIS_GENER_bdpm.txt        (Code CIS)
- └── CIS_CPD_bdpm.txt          (Code CIS)
-```
-
-### Limites de la BDPM
-
-La BDPM est un référentiel produit. Elle ne contient pas :
-
-- **Les volumes de prescription** — couverts par Open Medic (section suivante).
-- **La classification ATC** — absente de la BDPM standard, disponible dans Open Medic et dans des référentiels complémentaires.
-- **Les données de pharmacovigilance** — disponibles sur data.ansm.sante.fr.
-- **Les liens financiers laboratoires-praticiens** — couverts par Transparence Santé.
-
----
-
-## 2. Open Medic — Données de prescription
-
-*Section à venir.*
-
----
-
-## 3. RPPS — Annuaire des professionnels de santé
-
-*Section à venir.*
-
----
-
-## 4. FINESS — Répertoire des établissements de santé
-
-*Section à venir.*
-
----
-
-## 5. INSEE COG — Référentiel géographique
-
-*Section à venir.*
-
----
-
-## 6. Transparence Santé — Liens d'intérêts laboratoires-praticiens
-
-*Section à venir.*
-
----
-
-## 7. data.ansm — Pharmacovigilance
-
-*Section à venir.*
+Les données de sécurité post-AMM. La BDPM reflète l'état réglementaire d'un médicament, pas les signaux de pharmacovigilance ni les ruptures de stock qui surviennent après sa mise sur le marché. Ces informations sont dans data.ansm — objet de la Partie 6.

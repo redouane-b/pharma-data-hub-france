@@ -110,7 +110,8 @@ Source: **Transparence Santé** + BDPM titulaire_amm
 ### fact_prescriptions
 Source: **Open Medic** (annual CSVs 2014-2024)
 
-Grain: one row per (year, prescriber dept, executor dept, profession, age group, sex, CIP13)
+Grain: one row per (year, CIP13, ATC1–ATC5, TOP_GEN, GEN_NUM, PSP_SPE, BEN_REG, AGE, SEXE)
+Note: PSP_DEP / EXE_DEP (prescriber/executor department) were present in earlier vintages but removed in 2024 in favour of BEN_REG (beneficiary region, pre-2016 names).
 
 | Column | Type | Source Field | Description |
 |--------|------|-------------|-------------|
@@ -119,8 +120,12 @@ Grain: one row per (year, prescriber dept, executor dept, profession, age group,
 | montant_rembourse | DECIMAL | `REM` | Amount reimbursed in euros |
 | base_remboursement | DECIMAL | `BSE` | Reimbursement base in euros |
 | code_cip13 | VARCHAR(13) | `CIP13` | Drug presentation code → dim_molecule |
-| age_group | VARCHAR | `AGE` | Patient age bracket |
-| sex | SMALLINT | `sexe` | 1=Male, 2=Female, 9=Unknown |
+| age_group | VARCHAR | `AGE` | Patient age bracket: 0=0-19 ans, 20=20-59 ans, 60=60 ans et plus, 99=inconnu |
+| sex | SMALLINT | `SEXE` | 1=Masculin, 2=Féminin, 9=Inconnu |
+| top_gen | SMALLINT | `TOP_GEN` | Generic status (2022+): 0=no generic family, 1=generic, 4=princep/brand, 9=unknown |
+| gen_num | INTEGER | `GEN_NUM` | Generic group number (links princep to its generics) |
+| ben_reg | VARCHAR | `BEN_REG` | Beneficiary region code (pre-2016 names: 11=Île-de-France, 32=Nord-Pas-de-Calais-Picardie, etc.) |
+| psp_spe | SMALLINT | `PSP_SPE` | Prescriber specialty: 1=MG libérale, 3=Cardio-vasculaire, 7=Gynéco-obstétrique, 12=Pédiatrie, 90=Salariés (hôpitaux), etc. |
 
 **Known limitations:**
 - Data is aggregated (no individual prescription-level records)
